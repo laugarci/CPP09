@@ -1,0 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/29 17:52:53 by laugarci          #+#    #+#             */
+/*   Updated: 2024/02/29 18:07:55 by laugarci         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef BITCOINEXCHANGE_HPP
+#define BITCOINEXCHANGE_HPP
+
+#include <iostream>
+#include <fstream>
+#include <string>
+
+class BitcoinExchange {
+	private:
+	
+	public:
+		BitcoinExchange();
+		~BitcoinExchange();
+		BitcoinExchange(const BitcoinExchange& other);
+		BitcoinExchange& operator=(const BitcoinExchange& other);
+};
+
+#endif
