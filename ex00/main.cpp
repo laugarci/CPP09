@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:38:44 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/01 12:37:14 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/01 18:16:27 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ std::string readFromFile(const std::string& filename)
 	{
 		while (std::getline(file, line))
 		{
-			try {
+			try{
 				BitcoinExchange::parseLine(line);
 			}
 			catch (std::exception &e) {
