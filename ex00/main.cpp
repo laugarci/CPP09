@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:38:44 by laugarci          #+#    #+#             */
-/*   Updated: 2024/02/29 18:07:54 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/01 12:37:14 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,14 @@ std::string readFromFile(const std::string& filename)
 	{
 		while (std::getline(file, line))
 		{
-			content += line; 
-			content += '\n'; 
+			try {
+				BitcoinExchange::parseLine(line);
+			}
+			catch (std::exception &e) {
+				std::cout << "Error: " << e.what() << std::endl;
+			}
+			content += line;
+			content += '\n';
 		}
 		file.close();
 	}
@@ -39,9 +45,7 @@ int main(int ac, char **av)
 		std::cout << "Incorrect args" << std::endl;
 		return (1);
 	}
-
-    std::string filename = av[1]; 
-	std::string fileContent = readFromFile(filename); 
+	std::string inputContent = readFromFile(av[1]);
     return (0);
 }
 
