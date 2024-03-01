@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:52:53 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/01 13:19:51 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/01 14:53:40 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ class BitcoinExchange {
 		BitcoinExchange(const BitcoinExchange& other);
 		BitcoinExchange& operator=(const BitcoinExchange& other);
 		static void	parseLine(std::string& line);
-		static void	parseDate(std::string& date);
+		static void	parseValues(std::string& date, float val);
+		static void searchInfo(std::string day, std::string month, std::string year, float val);
+		static void printValues(std::string year, std::string month, std::string day, std::string value, float val);
+		static void trimSpaces(std::string& str);
 };
 
 #endif
