@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:52:44 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/01 15:13:43 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/01 18:11:23 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,20 @@ void	BitcoinExchange::printValues(std::string year, std::string month, std::stri
 	std::cout << year << " " << month << " "<< day << " => " << val << " = " << value << std::endl;	
 }
 
-void	BitcoinExchange::searchInfo(std::string day, std::string month, std::string year, float val)
+std::string BitcoinExchange::searchInfo(std::string day, std::string month, std::string year)
 {
 	std::string line;
 	std::ifstream file("data.csv");
 	std::string sub;
-	std::string value;
+	std::string value = "";
 
+//	std::cout << "Llega: " << "year: " << year << " | month: " << month << " | day: " << day << std::endl;
 	if (file.is_open())
 	{
 		while (std::getline(file, line))
 		{
 			sub = line.substr(0, line.find(","));
-			if (sub.find(year) != std::string::npos && sub.find(month) != std::string::npos && sub.find(day) != std::string::npos)
+			if (sub.find(year) != std::string::npos && sub.find(month, 4) != std::string::npos && sub.find(day, 7) != std::string::npos)
 			{
 				value = line.substr(line.find(",") + 1);
 				break ;
@@ -75,7 +76,67 @@ void	BitcoinExchange::searchInfo(std::string day, std::string month, std::string
 	}
 	else
 		throw std::exception();
-	printValues(year, month, day, value, val);
+	return (value);
+}
+
+std::string BitcoinExchange::recursiveInfo(std::string day, std::string month, std::string year)
+{
+	std::string data = "";
+
+	while (data.empty())
+	{
+		int d = std::stoi(day);
+		while (d > 1)
+		{
+			d -= 1;
+			day = std::to_string(d);
+			if (d < 10)
+				day = "0" + day;
+			data = searchInfo(day, month, year);
+			if (!data.empty())
+				return (data);
+		}
+		int m = std::stoi(month);
+		m -= 1;
+		while (m > 1)
+		{
+			d = 31;
+			while (d > 1)
+			{
+				day = std::to_string(d);
+				month = std::to_string(m);
+				data = searchInfo(day, month, year);
+				if (!data.empty())
+						return (data);
+				d -= 1;
+			}
+			m -= 1;
+		}
+		int y = std::stoi(year);
+		y -= 1;
+		while (y > 2009)
+		{
+			d = 31;
+			m = 12;
+			while (m > 1)
+			{
+				d = 31;
+				while (d > 1)
+				{
+					day = std::to_string(d);
+					month = std::to_string(m);
+					year = std::to_string(y);
+					data = searchInfo(day, month, year);
+					if (!data.empty())
+						return (data);
+					d -= 1;
+				}
+				m -= 1;
+			}
+			y -= 1;
+		}
+	}
+	return (data);
 }
 
 void	BitcoinExchange::parseValues(std::string& date, float val)
@@ -91,10 +152,7 @@ void	BitcoinExchange::parseValues(std::string& date, float val)
 		{
 			str = date.substr(0, pos);
 			if (std::stoi(str) > 2022 || std::stoi(str) < 2009)
-			{
-				std::cout << "fecha incorrecta" << std::endl;
 				throw std::exception();
-			}
 			year = str;
 		}
 		else
@@ -102,26 +160,17 @@ void	BitcoinExchange::parseValues(std::string& date, float val)
 			pos = date.find("-", pos);
 			pos2 = date.find("-", pos);
 			str = date.substr(pos + 1, pos2 - 2);
-		//	std::string str2 = date.substr(pos, pos2 + 1);
 			if (i == 1)
 			{
 				month = str;	
 				if (std::stoi(month) > 12 || std::stoi(month) < 1)
-				{
-					std::cout << "mes incorrecto" << std::endl;
 					throw std::exception();
-				}
-		//		month = str2;
 			}
 			if (i == 2)
 			{
 				day = str;
 				if ((std::stoi(day) > 31 || std::stoi(day) < 1) || (std::stoi(month) == 2 && std::stoi(day) > 29))
-				{
-					std::cout << "dia incorrecto" << std::endl;
 					throw std::exception();
-				}
-		//		day = str2;
 			}
 			pos++;
 		}
@@ -131,7 +180,10 @@ void	BitcoinExchange::parseValues(std::string& date, float val)
 	trimSpaces(day);
 	trimSpaces(month);
 	trimSpaces(year);
-	searchInfo(day, month, year, val);
+	std::string data = searchInfo(day, month, year);
+	if (data.empty())
+		data = recursiveInfo(day, month, year);
+	printValues(year, month, day, data, val);
 }
 
 void	BitcoinExchange::parseLine(std::string& line)
