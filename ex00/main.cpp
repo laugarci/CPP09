@@ -12,14 +12,19 @@
 
 #include "BitcoinExchange.hpp"
 
-std::string readFromFile(const std::string& filename)
+void readFromFile(const std::string& filename)
 {
-	std::ifstream file(filename);
-	std::string content; 
+	std::ifstream file(filename.c_str());
 	std::string line;
 	
 	if (file.is_open())
 	{
+		std::getline(file, line);
+		if (line.compare("date | value") != 0)
+		{
+			std::cout << "Error: bad format => " << line << " is not 'date | value'"  << std::endl;
+			return ;
+		}
 		while (std::getline(file, line))
 		{
 			try{
@@ -28,14 +33,11 @@ std::string readFromFile(const std::string& filename)
 			catch (std::exception &e) {
 				std::cout << "Error: " << e.what() << std::endl;
 			}
-			content += line;
-			content += '\n';
 		}
 		file.close();
 	}
 	else
 		std::cerr << "Error: could not open file " << filename << std::endl;
-	return (content); 
 }
 
 int main(int ac, char **av)
@@ -45,7 +47,7 @@ int main(int ac, char **av)
 		std::cout << "Incorrect args" << std::endl;
 		return (1);
 	}
-	std::string inputContent = readFromFile(av[1]);
+	readFromFile(av[1]);
     return (0);
 }
 

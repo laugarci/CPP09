@@ -12,8 +12,6 @@
 
 #include "BitcoinExchange.hpp"
 
-//problema con los numeros, buscar -mes- no mes sin -
-
 BitcoinExchange::BitcoinExchange()
 {
 }
@@ -50,8 +48,7 @@ void BitcoinExchange::trimSpaces(std::string &str)
 
 void	BitcoinExchange::printValues(std::string year, std::string month, std::string day, std::string value, float val)
 {	
-	//2011-01-03 => 3 = 0.9
-	std::cout << year << " " << month << " "<< day << " => " << val << " = " << value << std::endl;	
+	std::cout << year << "-" << month << "-"<< day << " => " << val << " = " << std::stof(value) * val << std::endl;	
 }
 
 std::string BitcoinExchange::searchInfo(std::string day, std::string month, std::string year)
@@ -61,7 +58,6 @@ std::string BitcoinExchange::searchInfo(std::string day, std::string month, std:
 	std::string sub;
 	std::string value = "";
 
-//	std::cout << "Llega: " << "year: " << year << " | month: " << month << " | day: " << day << std::endl;
 	if (file.is_open())
 	{
 		while (std::getline(file, line))
@@ -75,7 +71,7 @@ std::string BitcoinExchange::searchInfo(std::string day, std::string month, std:
 		}
 	}
 	else
-		throw std::exception();
+		throw std::runtime_error("impossible to open.");
 	return (value);
 }
 
@@ -146,40 +142,45 @@ void	BitcoinExchange::parseValues(std::string& date, float val)
 	size_t pos2 = date.find("-", pos);
 	std::string month, day, year;
 
+	if (pos == std::string::npos || pos2 == std::string::npos)
+		throw std::runtime_error("bad format.");
 	for (int i = 0; i < 3; i++)
 	{
 		if (i == 0)
 		{
-			str = date.substr(0, pos);
+			trimSpaces(str = date.substr(0, pos));
+			if (str.empty())
+				throw std::runtime_error("bad format.");
 			if (std::stoi(str) > 2022 || std::stoi(str) < 2009)
-				throw std::exception();
+				throw std::runtime_error("impossible found");
 			year = str;
 		}
 		else
 		{
 			pos = date.find("-", pos);
 			pos2 = date.find("-", pos);
-			str = date.substr(pos + 1, pos2 - 2);
+			if (pos == std::string::npos || pos2 == std::string::npos)
+				throw std::runtime_error("bad format");
+			trimSpaces(str = date.substr(pos + 1, pos2 - 2));
+			if (str.empty())
+				throw std::runtime_error("bad format");
 			if (i == 1)
 			{
-				month = str;	
+				month = str;
 				if (std::stoi(month) > 12 || std::stoi(month) < 1)
-					throw std::exception();
+					throw std::runtime_error("not a positive number or inexistent month");
 			}
 			if (i == 2)
 			{
 				day = str;
 				if ((std::stoi(day) > 31 || std::stoi(day) < 1) || (std::stoi(month) == 2 && std::stoi(day) > 29))
-					throw std::exception();
+					throw std::runtime_error("not a positive number or inexistend day");
 			}
 			pos++;
 		}
 	}
 	if (val < 0)
-		throw std::exception();
-	trimSpaces(day);
-	trimSpaces(month);
-	trimSpaces(year);
+		throw std::runtime_error("not a positive number");
 	std::string data = searchInfo(day, month, year);
 	if (data.empty())
 		data = recursiveInfo(day, month, year);
@@ -194,11 +195,13 @@ void	BitcoinExchange::parseLine(std::string& line)
 
 	pos = line.find("|");
 	if (pos == std::string::npos)
-		throw std::exception();
+		throw std::runtime_error("bad input => " + line);
 	date = line.substr(0, pos);
 	std::string value = line.substr(pos + 1, '\n');
 	if (value.length() > 8)
-		throw std::exception();
+		throw std::runtime_error("too large a number.");
+	if (value.empty())
+		throw std::runtime_error("empty information");
 	val = std::stof(value);
 	BitcoinExchange::parseValues(date, val);
 }

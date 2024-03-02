@@ -21,7 +21,7 @@ DEP_FILES = $(SRC_FILES:.cpp=.d)
 DEPS = $(addprefix $(OBJ_DIR), $(DEP_FILES))
 
 CC = g++
-CFLAGS = -std=c++98 -Wall -Wextra -Werror -MMD
+CFLAGS = -Wall -Wextra -Werror -MMD -std=c++98
 RM = rm -f
 INCLUDE = -I ./
 
