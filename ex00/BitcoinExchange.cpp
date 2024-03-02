@@ -198,7 +198,7 @@ void	BitcoinExchange::parseLine(std::string& line)
 		throw std::runtime_error("bad input => " + line);
 	date = line.substr(0, pos);
 	std::string value = line.substr(pos + 1, '\n');
-	if (value.length() > 8)
+	if (std::atoi(value.c_str()) > 1000)
 		throw std::runtime_error("too large a number.");
 	if (value.empty())
 		throw std::runtime_error("empty information");
