@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:13:12 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/04 16:52:01 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:25:32 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void PmergeMe::trimSpaces(std::string& str)
 
 int PmergeMe::minIndex(std::vector<int>& vec)
 {
-    int minVal;
-    int minIdx = -1;
+    int minVal = vec[0];
+    int minIdx = 0;
     for (size_t i = 0; i < vec.size(); ++i)
 	{
         if (vec[i] < minVal)
@@ -35,8 +35,8 @@ int PmergeMe::minIndex(std::vector<int>& vec)
 
 int PmergeMe::maxIndex(std::vector<int>& vec) 
 {
-    int maxVal;
-    int maxIdx = -1;
+    int maxVal = vec[0];
+    int maxIdx = 0;
     for (size_t i = 0; i < vec.size(); ++i)
 	{
         if (vec[i] > maxVal) {
