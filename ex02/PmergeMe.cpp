@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:13:12 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/04 17:25:32 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/04 17:33:51 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,6 @@ void PmergeMe::trimSpaces(std::string& str)
 {
 	str.erase(0, str.find_first_not_of(" "));
 	str.erase(str.find_last_not_of(" ") + 1);
-}
-
-int PmergeMe::minIndex(std::vector<int>& vec)
-{
-    int minVal = vec[0];
-    int minIdx = 0;
-    for (size_t i = 0; i < vec.size(); ++i)
-	{
-        if (vec[i] < minVal)
-		{
-            minVal = vec[i];
-            minIdx = i;
-        }
-    }
-    return (minIdx);
-}
-
-int PmergeMe::maxIndex(std::vector<int>& vec) 
-{
-    int maxVal = vec[0];
-    int maxIdx = 0;
-    for (size_t i = 0; i < vec.size(); ++i)
-	{
-        if (vec[i] > maxVal) {
-            maxVal = vec[i];
-            maxIdx = i;
-        }
-    }
-    return (maxIdx);
 }
 
 void PmergeMe::fordJohnsonVector(std::vector<int>& A)
