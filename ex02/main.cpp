@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:04:05 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/04 13:19:03 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/04 15:25:42 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int checkargs(std::string str)
 
 int main(int ac, char **av)
 {
+	std::string numbers;
+
 	if (ac < 2)
 		std::cout << "Error" << std::endl;
 	else
@@ -42,8 +44,13 @@ int main(int ac, char **av)
 			}
 			i++;
 		}
+		for (i = 1; i < ac; i++)
+		{
+			numbers += av[i];
+			numbers += ' ';
+		}
 		try {
-			PmergeMe::startPmergeMe(av[1]);
+			PmergeMe::startPmergeMe(numbers);
 		} catch (std::exception& e)
 		{
 			std::cout << "Error: " << e.what() << std::endl;
