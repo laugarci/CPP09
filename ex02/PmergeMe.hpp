@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:09:50 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/04 17:33:36 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:45:18 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,25 @@ class PmergeMe
 		PmergeMe( const PmergeMe& pmm );
 		~PmergeMe( void );
 		PmergeMe&			operator=(const PmergeMe& pmm);
-		static void trimSpaces(std::string& str);
 		static void	addToVector(std::string numbers, std::vector<int>& vector);
 		static void	fordJohnsonVector(std::vector<int>& A);
-//		static int minIndex(std::vector<int>& vec);
-//		static int maxIndex(std::vector<int>& vec);
+		static void fordJohnsonDeque(std::deque<int>& A);
 	public:
+		static void trimSpaces(std::string& str);
 		static void	startPmergeMe(std::string nums);
 
 };
 
-template<typename T> void printVector(const std::vector<T>& vec)
+template <typename Container> void print(const Container& cont)
 {
-    typename std::vector<T>::const_iterator it = vec.begin();
-    std::cout << "[";
-    if (it != vec.end()) {
-        std::cout << *it;
-        ++it;
+    typename Container::const_iterator it; 
+	std::cout << "[ ";
+    for (it = cont.begin(); it != cont.end(); ++it)
+    {
+        std::cout << *it << " ";
     }
-    for (; it != vec.end(); ++it) {
-        std::cout << ", " << *it;
-    }
-    std::cout << "]" << std::endl;
+	std::cout << "]";
+    std::cout << std::endl;
 }
 
 template<typename T> int minIndex(const T& cont)
@@ -64,3 +61,25 @@ template<typename T> int maxIndex(const T& cont)
     return std::distance(cont.begin(), maxIt);
 }
 
+template <typename Container> void addToContainer(std::string numbers, Container& container)
+{
+	size_t pos = 0;
+	size_t pos2;
+	std::string next;
+	
+	pos2 = numbers.find(" ");
+	if (pos2 == std::string::npos)
+		throw std::logic_error("at least two numbers separated by spaces are needed");
+	while (pos2 != std::string::npos)
+	{
+		next = numbers.substr(pos, pos2 - pos);
+		PmergeMe::trimSpaces(next);
+		if (!next.empty())
+			container.push_back(std::stoi(next));
+		pos = pos2 + 1;
+		pos2 = numbers.find(" ", pos);
+	}
+	next = numbers.substr(pos);
+	if (!next.empty())
+		container.push_back(std::stoi(next));
+}

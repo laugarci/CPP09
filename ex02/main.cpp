@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:04:05 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/04 15:25:42 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:45:00 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,8 @@ int checkargs(std::string str)
 	for (std::string::const_iterator it = str.begin(); it != str.end(); ++it)
 	{
 		char c = *it;
-		if (!(std::isdigit(c)) && c != '-')
-		{
-			std::cout << c << std::endl;
+		if (!(std::isdigit(c)))
 			return (1);
-		}
 	}
 	return (0);
 }
