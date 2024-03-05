@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:52:44 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/05 17:53:56 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/05 18:06:11 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void BitcoinExchange::trimSpaces(std::string &str)
     while (end > start && std::isspace(str[end - 1])) {
         --end;
     }
-
     str = str.substr(start, end - start);
 }
 
@@ -78,6 +77,7 @@ std::string BitcoinExchange::searchInfo(std::string day, std::string month, std:
 std::string BitcoinExchange::recursiveInfo(std::string day, std::string month, std::string year)
 {
 	std::string data = "";
+
 
 	while (data.empty())
 	{
