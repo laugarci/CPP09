@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:13:12 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/05 16:46:54 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:57:00 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& A)
 	print(A);
 	clock_t end = clock();
 	double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
-	std::cout << "Time to process a range of " << A.size() << "with std::vector : " << std::fixed
+	std::cout << "Time to process a range of " << A.size() << " elements with std::vector : " << std::fixed
          << time_taken << std::setprecision(5);
 	std::cout << " us " << std::endl;
 }
@@ -67,7 +67,7 @@ void PmergeMe::fordJohnsonVector(std::vector<int>& A)
         A.insert(A.end(), C.begin(), C.end());
         clock_t end = clock();
         double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
-        std::cout << "Time to process a range of " << A.size() << "with std::deque : " << std::fixed
+        std::cout << "Time to process a range of " << A.size() << " elements with std::deque : " << std::fixed
                   << time_taken << std::setprecision(5);
         std::cout << " us " << std::endl;
     }
@@ -87,13 +87,13 @@ void PmergeMe::addToVector(std::string numbers, std::vector<int>& vector)
         next = numbers.substr(pos, pos2 - pos);
         trimSpaces(next);
         if (!next.empty())
-            vector.push_back(std::stoi(next));
+            vector.push_back(std::atoi(next.c_str()));
         pos = pos2 + 1;
         pos2 = numbers.find(" ", pos);
     }
     next = numbers.substr(pos);
     if (!next.empty())
-        vector.push_back(std::stoi(next));
+        vector.push_back(std::atoi(next.c_str()));
 }
 
 void	PmergeMe::startPmergeMe(std::string nums)

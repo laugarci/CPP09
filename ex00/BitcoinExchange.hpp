@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:52:53 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/01 18:10:07 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:54:49 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,14 @@ class BitcoinExchange {
 		static void trimSpaces(std::string& str);
 		static std::string recursiveInfo(std::string day, std::string month, std::string year);
 };
+
+#include <sstream>
+
+template <typename T> std::string NumToString (T Number)
+{
+	std::ostringstream ss;
+	ss << Number;
+	return (ss.str());
+}
 
 #endif

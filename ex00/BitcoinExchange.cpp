@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:52:44 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/01 18:11:23 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:53:56 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,26 @@ std::string BitcoinExchange::recursiveInfo(std::string day, std::string month, s
 
 	while (data.empty())
 	{
-		int d = std::stoi(day);
+		int d = std::atoi(day.c_str());
 		while (d > 1)
 		{
 			d -= 1;
-			day = std::to_string(d);
+			day = NumToString(d);
 			if (d < 10)
 				day = "0" + day;
 			data = searchInfo(day, month, year);
 			if (!data.empty())
 				return (data);
 		}
-		int m = std::stoi(month);
+		int m = std::atoi(month.c_str());
 		m -= 1;
 		while (m > 1)
 		{
 			d = 31;
 			while (d > 1)
 			{
-				day = std::to_string(d);
-				month = std::to_string(m);
+				day = NumToString(d);
+				month = NumToString(m);
 				data = searchInfo(day, month, year);
 				if (!data.empty())
 						return (data);
@@ -108,7 +108,7 @@ std::string BitcoinExchange::recursiveInfo(std::string day, std::string month, s
 			}
 			m -= 1;
 		}
-		int y = std::stoi(year);
+		int y = std::atoi(year.c_str());
 		y -= 1;
 		while (y > 2009)
 		{
@@ -119,9 +119,9 @@ std::string BitcoinExchange::recursiveInfo(std::string day, std::string month, s
 				d = 31;
 				while (d > 1)
 				{
-					day = std::to_string(d);
-					month = std::to_string(m);
-					year = std::to_string(y);
+					day = NumToString(d);
+					month = NumToString(m);
+					year = NumToString(y);
 					data = searchInfo(day, month, year);
 					if (!data.empty())
 						return (data);
@@ -151,7 +151,7 @@ void	BitcoinExchange::parseValues(std::string& date, float val)
 			trimSpaces(str = date.substr(0, pos));
 			if (str.empty())
 				throw std::runtime_error("bad format.");
-			if (std::stoi(str) > 2022 || std::stoi(str) < 2009)
+			if (std::atoi(str.c_str()) > 2022 || std::atoi(str.c_str()) < 2009)
 				throw std::runtime_error("impossible found");
 			year = str;
 		}
@@ -167,13 +167,13 @@ void	BitcoinExchange::parseValues(std::string& date, float val)
 			if (i == 1)
 			{
 				month = str;
-				if (std::stoi(month) > 12 || std::stoi(month) < 1)
+				if (std::atoi(month.c_str()) > 12 || std::atoi(month.c_str()) < 1)
 					throw std::runtime_error("not a positive number or inexistent month");
 			}
 			if (i == 2)
 			{
 				day = str;
-				if ((std::stoi(day) > 31 || std::stoi(day) < 1) || (std::stoi(month) == 2 && std::stoi(day) > 29))
+				if ((std::atoi(day.c_str()) > 31 || std::atoi(day.c_str()) < 1) || (std::atoi(month.c_str()) == 2 && std::atoi(day.c_str()) > 29))
 					throw std::runtime_error("not a positive number or inexistend day");
 			}
 			pos++;

@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:48:48 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/04 11:35:24 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:55:28 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void RPN::startRPN(std::string numbers)
 		if (!next.empty())
 		{
 			if (isNumber(next))
-				stack.push(std::stoi(next));
+				stack.push(std::atoi(next.c_str()));
 			else
 				doOperations(stack, next);
 		}
@@ -152,7 +152,7 @@ void RPN::startRPN(std::string numbers)
 			if (!next.empty())
 			{
 				if (isNumber(next))
-					stack.push(std::stoi(next));
+					stack.push(std::atoi(next.c_str()));
 				else
 					doOperations(stack, next);
 			}

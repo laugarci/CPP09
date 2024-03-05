@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:09:50 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/05 16:45:18 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:58:49 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ template <typename Container> void addToContainer(std::string numbers, Container
 		next = numbers.substr(pos, pos2 - pos);
 		PmergeMe::trimSpaces(next);
 		if (!next.empty())
-			container.push_back(std::stoi(next));
+			container.push_back(std::atoi(next.c_str()));
 		pos = pos2 + 1;
 		pos2 = numbers.find(" ", pos);
 	}
 	next = numbers.substr(pos);
 	if (!next.empty())
-		container.push_back(std::stoi(next));
+		container.push_back(std::atoi(next.c_str()));
 }
