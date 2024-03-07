@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:09:50 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/07 15:51:20 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/07 17:35:54 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,11 @@ class PmergeMe
 		~PmergeMe( void );
 		PmergeMe&			operator=(const PmergeMe& pmm);
 		static void	addToVector(std::string numbers, std::vector<int>& vector);
-		static void printTime(clock_t end, clock_t start, int size);
+		static void printTime(clock_t end, clock_t start, std::string type, int size);
 		static std::vector<int> fordJohnsonSortVector(std::vector<int>& arrr);
 		static std::vector<int> mergeVector(const std::vector<int>& left, const std::vector<int>& right);
+		static std::deque<int> mergeDeque(const std::deque<int>& left, const std::deque<int>& right);
+		static std::deque<int> fordJohnsonSortDeque(std::deque<int>& arr);
 	public:
 		static void trimSpaces(std::string& str);
 		static void	startPmergeMe(std::string nums);
