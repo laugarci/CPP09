@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:52:44 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/05 18:20:17 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/07 10:11:03 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ std::string BitcoinExchange::recursiveInfo(std::string day, std::string month, s
 {
 	std::string data = "";
 
-
 	while (data.empty())
 	{
 		int d = std::atoi(day.c_str());
@@ -135,11 +134,12 @@ std::string BitcoinExchange::recursiveInfo(std::string day, std::string month, s
 	return (data);
 }
 
-void	BitcoinExchange::parseValues(std::string& date, float val)
+void	BitcoinExchange::parseValues(std::map<std::string, float>data)
 {
 	std::string str;
+	std::string date = data.begin()->first;
 	size_t pos = date.find("-");
-	size_t pos2 = date.find("-", pos);
+    size_t pos2 = date.find("-", pos);
 	std::string month, day, year;
 
 	if (pos == std::string::npos || pos2 == std::string::npos)
@@ -151,7 +151,7 @@ void	BitcoinExchange::parseValues(std::string& date, float val)
 			trimSpaces(str = date.substr(0, pos));
 			if (str.empty())
 				throw std::runtime_error("bad format.");
-			if (std::atoi(str.c_str()) > 2022 || std::atoi(str.c_str()) < 2009)
+			if (std::atoi(str.c_str()) < 2009)
 				throw std::runtime_error("impossible found");
 			year = str;
 		}
@@ -179,17 +179,19 @@ void	BitcoinExchange::parseValues(std::string& date, float val)
 			pos++;
 		}
 	}
-	if (val < 0)
+	if (data.begin()->second < 0)
 		throw std::runtime_error("not a positive number");
-	std::string data = searchInfo(day, month, year);
-	if (data.empty())
-		data = recursiveInfo(day, month, year);
-	printValues(year, month, day, data, val);
+	std::string info = searchInfo(day, month, year);
+	if (info.empty())
+		info = recursiveInfo(day, month, year);
+	float val = data.begin()->second;
+	printValues(year, month, day, info, val);
 }
 
 void	BitcoinExchange::parseLine(std::string& line)
 {
 	size_t pos;
+	std::map<std::string, float> data;
 	std::string date;
 	float val;
 
@@ -203,5 +205,6 @@ void	BitcoinExchange::parseLine(std::string& line)
 	if (value.empty())
 		throw std::runtime_error("empty information");
 	val = std::stof(value);
-	BitcoinExchange::parseValues(date, val);
+	data[date] = val;
+	BitcoinExchange::parseValues(data);
 }
