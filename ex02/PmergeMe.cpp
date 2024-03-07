@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:13:12 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/07 15:58:33 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/07 16:54:13 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,19 @@ std::vector<int> PmergeMe::mergeVector(const std::vector<int>& left, const std::
 		if (left[leftIndex] < right[rightIndex])
 		{
 			result.push_back(left[leftIndex]);
-            leftIndex++;
-        } else {
-            result.push_back(right[rightIndex]);
-            rightIndex++;
-        }
-    }
-
-    while (leftIndex < left.size())
+			leftIndex++;
+		}
+		else
+		{
+			result.push_back(right[rightIndex]);
+			rightIndex++;
+		}
+	}
+	
+	while (leftIndex < left.size())
 	{
-        result.push_back(left[leftIndex]);
-        leftIndex++;
+		result.push_back(left[leftIndex]);
+		leftIndex++;
     }
 
     while (rightIndex < right.size())
@@ -54,21 +56,20 @@ std::vector<int> PmergeMe::mergeVector(const std::vector<int>& left, const std::
         rightIndex++;
     }
 
-    return result;
+    return (result);
 }
 
 std::vector<int> PmergeMe::fordJohnsonSortVector(std::vector<int>& arr)
 {
     if (arr.size() <= 1)
         return arr;
-    int mid = arr.size() / 2;
+	int mid = arr.size() / 2;
 	std::vector<int> left(arr.begin(), arr.begin() + mid);
 	std::vector<int> right(arr.begin() + mid, arr.end());
-
-    left = fordJohnsonSortVector(left);
-    right = fordJohnsonSortVector(right);
-
-    return mergeVector(left, right);
+	
+	left = fordJohnsonSortVector(left);
+	right = fordJohnsonSortVector(right);
+	return (mergeVector(left, right));
 }
 
 void	PmergeMe::startPmergeMe(std::string nums)
@@ -79,6 +80,6 @@ void	PmergeMe::startPmergeMe(std::string nums)
 	std::cout << "Before: ";
 	print(vector);
 	vector = fordJohnsonSortVector(vector);
-	std::cout << "After: ";
+	std::cout << "After:  ";
 	print(vector);
 }
