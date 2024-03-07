@@ -20,7 +20,7 @@ int main(int ac, char **av)
 	else
 	{
 		if (checkNums(av[1]))
-			std::cout << "Error: just nums, spaces and + - * /" << std::endl;
+			std::cout << "Error" << std::endl;
 		else
 		{
 			try {

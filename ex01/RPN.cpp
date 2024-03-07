@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:48:48 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/05 17:55:28 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:32:10 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void	RPN::doOperations(std::stack<int>& stack, std::string& opt)
 		doSubtraction(stack);
 	else if (!opt.compare("*"))
 		doMultiplication(stack);
-	else if (!opt.compare("\\"))
+	else if (!opt.compare("/"))
 		doDivision(stack);
 }
 

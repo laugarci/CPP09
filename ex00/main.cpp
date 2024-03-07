@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:38:44 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/06 10:39:27 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:09:04 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int main(int ac, char **av)
 {
 	if (ac != 2)
 	{
-		std::cout << "Incorrect args" << std::endl;
+		std::cout << "Error: could not open file." << std::endl;
 		return (1);
 	}
 	readFromFile(av[1]);

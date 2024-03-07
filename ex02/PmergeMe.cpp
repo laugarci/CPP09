@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:13:12 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/05 17:57:00 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:58:33 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,93 +18,67 @@ void PmergeMe::trimSpaces(std::string& str)
 	str.erase(str.find_last_not_of(" ") + 1);
 }
 
-void PmergeMe::fordJohnsonVector(std::vector<int>& A)
+void PmergeMe::printTime(clock_t end, clock_t start, int size)
 {
-	clock_t start = clock();
-	std::vector<int> B, C;
-    while (!A.empty())
-	{
-        int minIdx = minIndex(A);
-        int maxIdx = maxIndex(A);
-        if (A[minIdx] < A[maxIdx])
-		{
-            B.push_back(A[minIdx]);
-            A.erase(A.begin() + minIdx);
-		}
-		else
-		{
-            C.insert(C.begin(), A[maxIdx]);
-            A.erase(A.begin() + maxIdx);
-        }
-    }
-    reverse(C.begin(), C.end());
-    A = B;
-    A.insert(A.end(), C.begin(), C.end());
-	std::cout << "After:  ";
-	print(A);
-	clock_t end = clock();
 	double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
-	std::cout << "Time to process a range of " << A.size() << " elements with std::vector : " << std::fixed
-         << time_taken << std::setprecision(5);
+	std::cout << "Time to process a range of " << size << " elements with std::deque : " << std::fixed << time_taken << std::setprecision(5);
 	std::cout << " us " << std::endl;
 }
 
- void PmergeMe::fordJohnsonDeque(std::deque<int>& A) {
-        clock_t start = clock();
-        std::deque<int> B, C;
-        while (!A.empty()) {
-            int minIdx = minIndex(A);
-            int maxIdx = maxIndex(A);
-            if (A[minIdx] < A[maxIdx]) {
-                B.push_back(A[minIdx]);
-                A.erase(A.begin() + minIdx);
-            } else {
-                C.push_front(A[maxIdx]);
-                A.erase(A.begin() + maxIdx);
-            }
-        }
-        A = B;
-        A.insert(A.end(), C.begin(), C.end());
-        clock_t end = clock();
-        double time_taken = double(end - start) / double(CLOCKS_PER_SEC);
-        std::cout << "Time to process a range of " << A.size() << " elements with std::deque : " << std::fixed
-                  << time_taken << std::setprecision(5);
-        std::cout << " us " << std::endl;
-    }
-
-void PmergeMe::addToVector(std::string numbers, std::vector<int>& vector)
+std::vector<int> PmergeMe::mergeVector(const std::vector<int>& left, const std::vector<int>& right)
 {
-    size_t pos = 0;
-    size_t pos2;
-    std::string next;
-
-    pos2 = numbers.find(" ");
-    if (pos2 == std::string::npos)
-        throw std::logic_error("at least two numbers separated by spaces are needed");
-
-    while (pos2 != std::string::npos)
+	std::vector<int> result;
+	unsigned int leftIndex = 0, rightIndex = 0;
+	
+	while (leftIndex < left.size() && rightIndex < right.size())
 	{
-        next = numbers.substr(pos, pos2 - pos);
-        trimSpaces(next);
-        if (!next.empty())
-            vector.push_back(std::atoi(next.c_str()));
-        pos = pos2 + 1;
-        pos2 = numbers.find(" ", pos);
+		if (left[leftIndex] < right[rightIndex])
+		{
+			result.push_back(left[leftIndex]);
+            leftIndex++;
+        } else {
+            result.push_back(right[rightIndex]);
+            rightIndex++;
+        }
     }
-    next = numbers.substr(pos);
-    if (!next.empty())
-        vector.push_back(std::atoi(next.c_str()));
+
+    while (leftIndex < left.size())
+	{
+        result.push_back(left[leftIndex]);
+        leftIndex++;
+    }
+
+    while (rightIndex < right.size())
+	{
+        result.push_back(right[rightIndex]);
+        rightIndex++;
+    }
+
+    return result;
+}
+
+std::vector<int> PmergeMe::fordJohnsonSortVector(std::vector<int>& arr)
+{
+    if (arr.size() <= 1)
+        return arr;
+    int mid = arr.size() / 2;
+	std::vector<int> left(arr.begin(), arr.begin() + mid);
+	std::vector<int> right(arr.begin() + mid, arr.end());
+
+    left = fordJohnsonSortVector(left);
+    right = fordJohnsonSortVector(right);
+
+    return mergeVector(left, right);
 }
 
 void	PmergeMe::startPmergeMe(std::string nums)
 {
 	std::vector<int> vector;
-	std::deque<int> deque;
 	trimSpaces(nums);
 	addToContainer(nums, vector);
-	addToContainer(nums, deque);
 	std::cout << "Before: ";
 	print(vector);
-	fordJohnsonVector(vector);
-	fordJohnsonDeque(deque);
+	vector = fordJohnsonSortVector(vector);
+	std::cout << "After: ";
+	print(vector);
 }

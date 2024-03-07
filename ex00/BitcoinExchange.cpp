@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 17:52:44 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/07 10:11:03 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:05:49 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,11 @@ std::string BitcoinExchange::searchInfo(std::string day, std::string month, std:
 std::string BitcoinExchange::recursiveInfo(std::string day, std::string month, std::string year)
 {
 	std::string data = "";
+	int d, y, m;
 
 	while (data.empty())
 	{
-		int d = std::atoi(day.c_str());
+		d = std::atoi(day.c_str());
 		while (d > 1)
 		{
 			d -= 1;
@@ -91,7 +92,7 @@ std::string BitcoinExchange::recursiveInfo(std::string day, std::string month, s
 			if (!data.empty())
 				return (data);
 		}
-		int m = std::atoi(month.c_str());
+		m = std::atoi(month.c_str());
 		m -= 1;
 		while (m > 1)
 		{
@@ -107,7 +108,7 @@ std::string BitcoinExchange::recursiveInfo(std::string day, std::string month, s
 			}
 			m -= 1;
 		}
-		int y = std::atoi(year.c_str());
+		y = std::atoi(year.c_str());
 		y -= 1;
 		while (y > 2009)
 		{
