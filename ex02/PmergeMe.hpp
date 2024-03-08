@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:09:50 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/07 17:35:54 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:23:53 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@
 class PmergeMe
 {
 	private:
-		static const unsigned int	_size = 5;
-		PmergeMe( void );
-		PmergeMe( const PmergeMe& pmm );
-		~PmergeMe( void );
-		PmergeMe&			operator=(const PmergeMe& pmm);
+		PmergeMe(void);
+		PmergeMe(const PmergeMe& other);
+		~PmergeMe(void);
+		PmergeMe&			operator=(const PmergeMe& other);
 		static void	addToVector(std::string numbers, std::vector<int>& vector);
 		static void printTime(clock_t end, clock_t start, std::string type, int size);
 		static std::vector<int> fordJohnsonSortVector(std::vector<int>& arrr);

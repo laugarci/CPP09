@@ -6,11 +6,30 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:13:12 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/08 14:18:32 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:23:46 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+
+PmergeMe::PmergeMe(void)
+{
+}
+
+PmergeMe::PmergeMe(const PmergeMe& other)
+{
+	(void)other;
+}
+
+PmergeMe::~PmergeMe(void)
+{
+}
+
+PmergeMe&	PmergeMe::operator=(const PmergeMe& other)
+{
+	(void)other;
+	return (*this);
+}
 
 void PmergeMe::trimSpaces(std::string& str)
 {

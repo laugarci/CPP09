@@ -6,11 +6,30 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 10:48:48 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/07 12:32:10 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:21:15 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
+
+RPN::RPN(void)
+{
+}
+
+RPN::RPN(const RPN& rpn)
+{
+	(void)rpn;
+}
+
+RPN::~RPN(void)
+{
+}
+
+RPN&	RPN::operator=(const RPN& rpn)
+{
+	(void)rpn;
+	return (*this);
+}
 
 void RPN::trimSpaces(std::string& str)
 {
