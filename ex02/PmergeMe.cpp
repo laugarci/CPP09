@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:13:12 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/07 17:45:39 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/03/08 14:18:32 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ std::vector<int> PmergeMe::fordJohnsonSortVector(std::vector<int>& arr)
     if (arr.size() <= 1)
         return arr;
 	int mid = arr.size() / 2;
+	print(arr);
 	std::vector<int> left(arr.begin(), arr.begin() + mid);
 	std::vector<int> right(arr.begin() + mid, arr.end());
 	
