@@ -122,6 +122,8 @@ void	RPN::doDivision(std::stack<int>& stack)
 		num1 = stack.top();
 		stack.pop();
 		num2 = stack.top();
+		if (num1 == 0)
+			throw std::logic_error("the operation cannot be done.");
 		stack.pop();
 		stack.push(num2 / num1);
 	}
