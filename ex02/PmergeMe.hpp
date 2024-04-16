@@ -30,10 +30,11 @@ class PmergeMe
 		PmergeMe&			operator=(const PmergeMe& other);
 		static void	addToVector(std::string numbers, std::vector<int>& vector);
 		static void printTime(clock_t end, clock_t start, std::string type, int size);
-		static std::vector<int> fordJohnsonSortVector(std::vector<int>& arrr);
-		static std::vector<int> mergeVector(const std::vector<int>& left, const std::vector<int>& right);
-		static std::deque<int> mergeDeque(const std::deque<int>& left, const std::deque<int>& right);
+		static void sortInPairs(std::vector<int>& arr);
 		static std::deque<int> fordJohnsonSortDeque(std::deque<int>& arr);
+		static std::vector<int> fordJohnsonSortVector(std::vector<int>& arr);
+		static std::vector<int>& fibonacciSort(std::vector<int>& arr);
+		static std::deque<int>& fibonacciSortDeque(std::deque<int>& arr);
 	public:
 		static void trimSpaces(std::string& str);
 		static void	startPmergeMe(std::string nums);

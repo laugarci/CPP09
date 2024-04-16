@@ -44,93 +44,102 @@ void PmergeMe::printTime(clock_t end, clock_t start, std::string type, int size)
 	std::cout << " us " << std::endl;
 }
 
-std::vector<int> PmergeMe::mergeVector(const std::vector<int>& left, const std::vector<int>& right)
-{
-	std::vector<int> result;
-	unsigned int leftIndex = 0, rightIndex = 0;
-	
-	while (leftIndex < left.size() && rightIndex < right.size())
-	{
-		if (left[leftIndex] < right[rightIndex])
-		{
-			result.push_back(left[leftIndex]);
-			leftIndex++;
-		}
-		else
-		{
-			result.push_back(right[rightIndex]);
-			rightIndex++;
-		}
-	}
-	
-	while (leftIndex < left.size())
-	{
-		result.push_back(left[leftIndex]);
-		leftIndex++;
-    }
-
-    while (rightIndex < right.size())
-	{
-        result.push_back(right[rightIndex]);
-        rightIndex++;
-    }
-
-    return (result);
-}
-
 std::vector<int> PmergeMe::fordJohnsonSortVector(std::vector<int>& arr)
 {
-    if (arr.size() <= 1)
+	if (arr.size() <= 1)
+		return arr;
+	return (fibonacciSort(arr));
+}
+
+bool compare(const int& a, const int& b)
+{
+    return a < b;
+}
+
+void sortInPairs(std::vector<int>& arr)
+{
+	for (size_t i = 0; i < arr.size() - 1; i += 2) {
+		if (arr[i] > arr[i + 1])
+			std::swap(arr[i], arr[i + 1]);
+    }
+}
+
+std::vector<int>& PmergeMe::fibonacciSort(std::vector<int>& arr)
+{
+	int n = arr.size();
+	std::vector<int> fibonacci;
+
+	fibonacci.push_back(1);
+	fibonacci.push_back(1);
+	int fib = 1;
+	while (fib < n)
 	{
-        return arr;
+		fib = fibonacci[fibonacci.size() - 1] + 2 * fibonacci[fibonacci.size() - 2];
+		fibonacci.push_back(fib);
+	}
+
+	int index = fibonacci.size() - 3;
+	while (index >= 0)
+	{
+		int step = fibonacci[index];
+		for (int i = step; i < n; ++i) {
+			int temp = arr[i];
+		int j = i;
+		while (j >= step && arr[j - step] > temp)
+		{
+			arr[j] = arr[j - step];
+			j -= step;
+		}
+		arr[j] = temp;
+        }
+	--index;
+	}
+	return (arr);
 }
-	int mid = arr.size() / 2;
-	std::vector<int> left(arr.begin(), arr.begin() + mid);
-	std::vector<int> right(arr.begin() + mid, arr.end());
-	
-	left = fordJohnsonSortVector(left);
-	right = fordJohnsonSortVector(right);
-	return (mergeVector(left, right));
+
+void sortInPairs(std::deque<int>& arr) {
+    for (size_t i = 0; i < arr.size() - 1; i += 2) {
+        if (arr[i] > arr[i + 1])
+            std::swap(arr[i], arr[i + 1]);
+    }
 }
 
-std::deque<int> PmergeMe::mergeDeque(const std::deque<int>& left, const std::deque<int>& right) {
-        std::deque<int> result;
-        unsigned int leftIndex = 0, rightIndex = 0;
+std::deque<int>& PmergeMe::fibonacciSortDeque(std::deque<int>& arr)
+{
+    int n = arr.size();
+    std::deque<int> fibonacci;
 
-        while (leftIndex < left.size() && rightIndex < right.size()) {
-            if (left[leftIndex] < right[rightIndex]) {
-                result.push_back(left[leftIndex]);
-                leftIndex++;
-            } else {
-                result.push_back(right[rightIndex]);
-                rightIndex++;
-            }
-        }
-
-        while (leftIndex < left.size()) {
-            result.push_back(left[leftIndex]);
-            leftIndex++;
-        }
-
-        while (rightIndex < right.size()) {
-            result.push_back(right[rightIndex]);
-            rightIndex++;
-        }
-
-        return result;
+    fibonacci.push_back(1);
+    fibonacci.push_back(1);
+    int fib = 1;
+    while (fib < n) {
+        fib = fibonacci[fibonacci.size() - 1] + 2 * fibonacci[fibonacci.size() - 2];
+        fibonacci.push_back(fib);
     }
 
-std::deque<int> PmergeMe::fordJohnsonSortDeque(std::deque<int>& arr) {
+    int index = fibonacci.size() - 3;
+    while (index >= 0) {
+        int step = fibonacci[index];
+        for (int i = step; i < n; ++i) {
+            int temp = arr[i];
+            int j = i;
+            while (j >= step && arr[j - step] > temp) {
+                arr[j] = arr[j - step];
+                j -= step;
+            }
+            arr[j] = temp;
+        }
+        --index;
+    }
+	return (arr);
+}
+
+std::deque<int> PmergeMe::fordJohnsonSortDeque(std::deque<int>& arr)
+{
         if (arr.size() <= 1)
             return arr;
-        int mid = arr.size() / 2;
-        std::deque<int> left(arr.begin(), arr.begin() + mid);
-        std::deque<int> right(arr.begin() + mid, arr.end());
-
-        left = fordJohnsonSortDeque(left);
-        right = fordJohnsonSortDeque(right);
-        return mergeDeque(left, right);
-    }
+        return fibonacciSortDeque(arr);
+}
 
 void	PmergeMe::startPmergeMe(std::string nums)
 {
