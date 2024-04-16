@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:13:12 by laugarci          #+#    #+#             */
-/*   Updated: 2024/04/16 14:51:44 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/04/16 18:07:51 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ std::deque<int> PmergeMe::fordJohnsonSortDeque(std::deque<int>& arr)
 {
 	if (arr.size() <= 1)
 		return arr;
-	return fibonacciSortDeque(arr);
+	return (fibonacciSortDeque(arr));
 }
 
 void	PmergeMe::startPmergeMe(std::string nums)
