@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:13:12 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/08 14:18:32 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:51:44 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,13 @@ std::vector<int> PmergeMe::fordJohnsonSortVector(std::vector<int>& arr)
 
 bool compare(const int& a, const int& b)
 {
-    return a < b;
+	return (a < b);
 }
 
 void sortInPairs(std::vector<int>& arr)
 {
-	for (size_t i = 0; i < arr.size() - 1; i += 2) {
+	for (size_t i = 0; i < arr.size() - 1; i += 2)
+	{
 		if (arr[i] > arr[i + 1])
 			std::swap(arr[i], arr[i + 1]);
     }
@@ -82,63 +83,70 @@ std::vector<int>& PmergeMe::fibonacciSort(std::vector<int>& arr)
 	while (index >= 0)
 	{
 		int step = fibonacci[index];
-		for (int i = step; i < n; ++i) {
-			int temp = arr[i];
-		int j = i;
-		while (j >= step && arr[j - step] > temp)
+		for (int i = step; i < n; ++i)
 		{
-			arr[j] = arr[j - step];
-			j -= step;
+			int temp = arr[i];
+			int j = i;
+			while (j >= step && arr[j - step] > temp)
+			{
+				arr[j] = arr[j - step];
+				j -= step;
+			}
+			arr[j] = temp;
 		}
-		arr[j] = temp;
-        }
-	--index;
+		--index;
 	}
 	return (arr);
 }
 
-void sortInPairs(std::deque<int>& arr) {
-    for (size_t i = 0; i < arr.size() - 1; i += 2) {
-        if (arr[i] > arr[i + 1])
-            std::swap(arr[i], arr[i + 1]);
-    }
+void sortInPairs(std::deque<int>& arr)
+{
+	for (size_t i = 0; i < arr.size() - 1; i += 2)
+	{
+		if (arr[i] > arr[i + 1])
+			std::swap(arr[i], arr[i + 1]);
+	}
 }
 
 std::deque<int>& PmergeMe::fibonacciSortDeque(std::deque<int>& arr)
 {
-    int n = arr.size();
-    std::deque<int> fibonacci;
-
-    fibonacci.push_back(1);
-    fibonacci.push_back(1);
-    int fib = 1;
-    while (fib < n) {
-        fib = fibonacci[fibonacci.size() - 1] + 2 * fibonacci[fibonacci.size() - 2];
-        fibonacci.push_back(fib);
-    }
-
-    int index = fibonacci.size() - 3;
-    while (index >= 0) {
-        int step = fibonacci[index];
-        for (int i = step; i < n; ++i) {
-            int temp = arr[i];
-            int j = i;
-            while (j >= step && arr[j - step] > temp) {
-                arr[j] = arr[j - step];
-                j -= step;
-            }
-            arr[j] = temp;
-        }
-        --index;
-    }
+	int n = arr.size();
+	std::deque<int> fibonacci;
+	
+	fibonacci.push_back(1);
+	fibonacci.push_back(1);
+	int fib = 1;
+	while (fib < n)
+	{
+		fib = fibonacci[fibonacci.size() - 1] + 2 * fibonacci[fibonacci.size() - 2];
+		fibonacci.push_back(fib);
+	}
+	
+	int index = fibonacci.size() - 3;
+	while (index >= 0)
+	{
+		int step = fibonacci[index];
+		for (int i = step; i < n; ++i)
+		{
+			int temp = arr[i];
+			int j = i;
+			while (j >= step && arr[j - step] > temp)
+			{
+				arr[j] = arr[j - step];
+				j -= step;
+			}
+			arr[j] = temp;
+		}
+		--index;
+	}
 	return (arr);
 }
 
 std::deque<int> PmergeMe::fordJohnsonSortDeque(std::deque<int>& arr)
 {
-        if (arr.size() <= 1)
-            return arr;
-        return fibonacciSortDeque(arr);
+	if (arr.size() <= 1)
+		return arr;
+	return fibonacciSortDeque(arr);
 }
 
 void	PmergeMe::startPmergeMe(std::string nums)
