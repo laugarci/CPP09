@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:09:50 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/08 14:23:53 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:17:48 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ class PmergeMe
 		PmergeMe&			operator=(const PmergeMe& other);
 		static void	addToVector(std::string numbers, std::vector<int>& vector);
 		static void printTime(clock_t end, clock_t start, std::string type, int size);
-		static void sortInPairs(std::vector<int>& arr);
+		static void sortInPairsVector(std::vector<int>& arr);
+		static void sortInPairsDeque(std::deque<int>& arr);
 		static std::deque<int> fordJohnsonSortDeque(std::deque<int>& arr);
 		static std::vector<int> fordJohnsonSortVector(std::vector<int>& arr);
 		static std::vector<int>& fibonacciSort(std::vector<int>& arr);

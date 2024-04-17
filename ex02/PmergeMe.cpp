@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:13:12 by laugarci          #+#    #+#             */
-/*   Updated: 2024/04/16 18:07:51 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/04/17 16:27:59 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,11 @@ std::vector<int> PmergeMe::fordJohnsonSortVector(std::vector<int>& arr)
 {
 	if (arr.size() <= 1)
 		return arr;
+	sortInPairsVector(arr);
 	return (fibonacciSort(arr));
 }
 
-bool compare(const int& a, const int& b)
-{
-	return (a < b);
-}
-
-void sortInPairs(std::vector<int>& arr)
+void PmergeMe::sortInPairsVector(std::vector<int>& arr)
 {
 	for (size_t i = 0; i < arr.size() - 1; i += 2)
 	{
@@ -99,7 +95,7 @@ std::vector<int>& PmergeMe::fibonacciSort(std::vector<int>& arr)
 	return (arr);
 }
 
-void sortInPairs(std::deque<int>& arr)
+void PmergeMe::sortInPairsDeque(std::deque<int>& arr)
 {
 	for (size_t i = 0; i < arr.size() - 1; i += 2)
 	{
@@ -121,7 +117,6 @@ std::deque<int>& PmergeMe::fibonacciSortDeque(std::deque<int>& arr)
 		fib = fibonacci[fibonacci.size() - 1] + 2 * fibonacci[fibonacci.size() - 2];
 		fibonacci.push_back(fib);
 	}
-	
 	int index = fibonacci.size() - 3;
 	while (index >= 0)
 	{
@@ -146,6 +141,7 @@ std::deque<int> PmergeMe::fordJohnsonSortDeque(std::deque<int>& arr)
 {
 	if (arr.size() <= 1)
 		return arr;
+	sortInPairsDeque(arr);
 	return (fibonacciSortDeque(arr));
 }
 
