@@ -6,7 +6,7 @@
 /*   By: laugarci <laugarci@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 13:04:05 by laugarci          #+#    #+#             */
-/*   Updated: 2024/03/05 16:45:00 by laugarci         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:01:41 by laugarci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int checkargs(std::string str)
 		if (!(std::isdigit(c)))
 			return (1);
 	}
+	long num = std::atol(str.c_str());
+	if (num > INT_MAX)
+		return (1);
 	return (0);
 }
 
